@@ -79,10 +79,10 @@ def dataset_agglomerator(path: str):
         if fname != '' and ftype == 'csv':
             valid_files.append(file)
 
-    parent = pd.read_csv(f'datasets/{valid_files[0]}')
+    parent = pd.read_csv(f'datasets/{valid_files[0]}').drop('Unnamed: 0', axis=1)
 
     for file in valid_files[0:]:
-        child = pd.read_csv(f'datasets/{file}')
+        child = pd.read_csv(f'datasets/{file}').drop('Unnamed: 0', axis=1)
         parent = pd.concat([parent, child], sort=True)
 
     parent.to_csv('cumulative_shotmap.csv')
