@@ -2,9 +2,7 @@ from bs4 import BeautifulSoup
 import requests
 import datetime
 import pandas as pd
-import numpy as np
 import os
-from sklearn.preprocessing import OneHotEncoder
 
 
 def shotmap_extractor(event_id: str, headers=None):
@@ -79,7 +77,8 @@ def dataset_agglomerator(path: str):
         if fname != '' and ftype == 'csv':
             valid_files.append(file)
 
-    parent = pd.read_csv(f'datasets/{valid_files[0]}').drop('Unnamed: 0', axis=1)
+    parent = pd.read_csv(
+        f'datasets/{valid_files[0]}').drop('Unnamed: 0', axis=1)
 
     for file in valid_files[0:]:
         child = pd.read_csv(f'datasets/{file}').drop('Unnamed: 0', axis=1)
@@ -93,7 +92,11 @@ if __name__ == '__main__':
               10385651, 10385647, 10385604, 10385610, 10385575, 10385562,
               10385544, 10385504, 10865877, 10385492, 11047942, 10385488,
               10385477, 10865869, 10385466, 10385442, 10980654, 10385437,
-              10913242, 10385433, 10909914, 10385414, 10385397]
+              10913242, 10385433, 10909914, 10385414, 10385397, 11352504,
+              11352447, 11352495, 11352456, 11352466, 11352524, 11352515,
+              11352484, 11352346, 11352418, 11352337, 11352389, 11352358, 
+              11352428, 11352367, 11352399, 11352327, 11352316, 11352255, 
+              11352254, 11352252, 11352253, 11352250, 11352251, 11352303]
 
     for event_id in events:
         shotmap_extractor(event_id=event_id, headers=None)
