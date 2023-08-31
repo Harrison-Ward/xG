@@ -3,6 +3,7 @@ import requests
 import datetime
 import pandas as pd
 import numpy as np
+import os
 from sklearn.preprocessing import OneHotEncoder
 
 
@@ -68,7 +69,23 @@ def shotmap_extractor(event_id: str, headers=None):
     shots.drop(['player', 'isHome', 'shotType', 'situation', 'playerCoordinates', 'bodyPart',
                'goalMouthLocation', 'goalMouthCoordinates', 'draw', 'blockCoordinates'], axis=1, inplace=True)
 
-    shots.to_csv(f'{event_id}_shotmap.csv')
+    shots.to_csv(f'datasets/{event_id}_shotmap.csv')
+
+
+def dataset_agglomerator(path: str):
+    valid_files = []
+    for file in os.listdir(path):
+        fname, ftype = file.split('.')
+        if fname != '' and ftype == 'csv':
+            valid_files.append(file)
+
+    parent = pd.read_csv(valid_files[0])
+
+    for file in valid_files[0:]:
+        child = pd.read_csv(file)
+        parent.append(child, sortPandas=True)
+
+    parent.to_csv('cumulative_shotmap.csv')
 
 
 if __name__ == '__main__':
@@ -77,5 +94,8 @@ if __name__ == '__main__':
               10385544, 10385504, 10865877, 10385492, 11047942, 10385488,
               10385477, 10865869, 10385466, 10385442, 10980654, 10385437,
               10913242, 10385433, 10909914, 10385414, 10385397]
+
     for event_id in events:
         shotmap_extractor(event_id=event_id, headers=None)
+
+    dataset_agglomerator('datasets')
