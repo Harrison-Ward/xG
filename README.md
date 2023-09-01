@@ -1,5 +1,5 @@
 # xG ⚽️
-Calculation of xG from premier league games via web-scraping shot location data from Sofascore.com
+Calculation of xG from premier league games using artificial neural networks. Shot location data web scraped from Sofascore.com
 
 ## Shot Location by Outcome
 ![](assets/shotmap.png)
