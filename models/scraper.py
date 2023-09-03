@@ -1,4 +1,5 @@
 from bs4 import BeautifulSoup
+import csv
 import requests
 import datetime
 import pandas as pd
@@ -12,7 +13,6 @@ def shotmap_extractor(event_id: str, headers=None):
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0',
             'Accept': '*/*',
             'Accept-Language': 'en-US,en;q=0.5',
-            # 'Accept-Encoding': 'gzip, deflate, br',
             'Referer': 'https://www.sofascore.com/',
             'Origin': 'https://www.sofascore.com',
             'Connection': 'keep-alive',
@@ -21,8 +21,6 @@ def shotmap_extractor(event_id: str, headers=None):
             'Sec-Fetch-Site': 'same-site',
             'If-None-Match': 'W/"8acfad2dd3"',
             'Cache-Control': 'max-age=0',
-            # Requests doesn't support trailers
-            # 'TE': 'trailers',
         }
 
     # add present timestamp to header dict
@@ -65,9 +63,9 @@ def shotmap_extractor(event_id: str, headers=None):
 
     # clean up extra columns
     shots.drop(['player', 'isHome', 'shotType', 'situation', 'playerCoordinates', 'bodyPart',
-               'goalMouthLocation', 'goalMouthCoordinates', 'draw', 'blockCoordinates'], axis=1, inplace=True)
+               'goalMouthLocation', 'goalMouthCoordinates', 'draw'], axis=1, inplace=True)
 
-    shots.to_csv(f'datasets/{event_id}_shotmap.csv')
+    shots.to_csv(f'/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps/{event_id}_shotmap.csv')
 
 
 def dataset_agglomerator(path: str):
@@ -78,27 +76,35 @@ def dataset_agglomerator(path: str):
             valid_files.append(file)
 
     parent = pd.read_csv(
-        f'datasets/{valid_files[0]}').drop('Unnamed: 0', axis=1)
+        f'datasets/game_shotmaps/{valid_files[0]}').drop('Unnamed: 0', axis=1)
 
     for file in valid_files[0:]:
-        child = pd.read_csv(f'datasets/{file}').drop('Unnamed: 0', axis=1)
+        child = pd.read_csv(f'datasets/game_shotmaps/{file}').drop('Unnamed: 0', axis=1)
         parent = pd.concat([parent, child], sort=True)
 
-    parent.to_csv('cumulative_shotmap.csv')
+    parent.to_csv('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_cumulative_shotmap.csv')
 
 
 if __name__ == '__main__':
-    events = [11352437, 11352309, 11352407, 10385726, 10385723, 10385694,
-              10385651, 10385647, 10385604, 10385610, 10385575, 10385562,
-              10385544, 10385504, 10865877, 10385492, 11047942, 10385488,
-              10385477, 10865869, 10385466, 10385442, 10980654, 10385437,
-              10913242, 10385433, 10909914, 10385414, 10385397, 11352504,
-              11352447, 11352495, 11352456, 11352466, 11352524, 11352515,
-              11352484, 11352346, 11352418, 11352337, 11352389, 11352358, 
-              11352428, 11352367, 11352399, 11352327, 11352316, 11352255, 
-              11352254, 11352252, 11352253, 11352250, 11352251, 11352303]
+    # events = [11352437, 11352309, 11352407, 10385726, 10385723, 10385694,
+    #           10385651, 10385647, 10385604, 10385610, 10385575, 10385562,
+    #           10385544, 10385504, 10865877, 10385492, 11047942, 10385488,
+    #           10385477, 10865869, 10385466, 10385442, 10980654, 10385437,
+    #           10913242, 10385433, 10909914, 10385414, 10385397, 11352504,
+    #           11352447, 11352495, 11352456, 11352466, 11352524, 11352515,
+    #           11352484, 11352346, 11352418, 11352337, 11352389, 11352358, 
+    #           11352428, 11352367, 11352399, 11352327, 11352316, 11352255, 
+    #           11352254, 11352252, 11352253, 11352250, 11352251, 11352303, 
+    #           11352561, 11352551, 11352594, 1352570, 11352543, 11352551]
+    with open('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_finished_events.csv') as file:
+        events = pd.read_csv(file)
+ 
+  # displaying the contents of the CSV file
+        for i, event_id in enumerate(events.event_id):
+            try:
+                shotmap_extractor(event_id=event_id, headers=None)
+            except KeyError:
+                pass
+        
 
-    for event_id in events:
-        shotmap_extractor(event_id=event_id, headers=None)
-
-    dataset_agglomerator('datasets')
+    dataset_agglomerator('/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps')
