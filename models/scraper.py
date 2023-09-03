@@ -33,15 +33,19 @@ def shotmap_extractor(event_id: str, headers=None):
     response = requests.get(target, headers=headers)
     shots_data = response.json()['shotmap']
     shots = pd.DataFrame.from_dict(shots_data)
+    shots = shots.fillna(0)
 
     # take name slug and id info from player name
     shots['name'] = shots.player.apply(lambda x: dict(x)['slug'])
     shots['playerId'] = shots.player.apply(lambda x: dict(x)['id'])
 
     # unpack player coordinates into seperate vars
-    shots['player_x'] = shots.playerCoordinates.apply(lambda x: dict(x)['x'])
-    shots['player_y'] = shots.playerCoordinates.apply(lambda x: dict(x)['y'])
-    shots['player_z'] = shots.playerCoordinates.apply(lambda x: dict(x)['z'])
+    shots['player_x'] = shots.playerCoordinates.apply(
+        lambda x: dict(x)['x'])
+    shots['player_y'] = shots.playerCoordinates.apply(
+        lambda x: dict(x)['y'])
+    shots['player_z'] = shots.playerCoordinates.apply(
+        lambda x: dict(x)['z'])
 
     # unpack goal mouth coordiantes
     shots['goalMouth_x'] = shots.goalMouthCoordinates.apply(
@@ -50,6 +54,14 @@ def shotmap_extractor(event_id: str, headers=None):
         lambda x: dict(x)['y'])
     shots['goalMouth_z'] = shots.goalMouthCoordinates.apply(
         lambda x: dict(x)['z'])
+
+    # unpack block location coordiantes
+    shots['blockCoordinates_x'] = shots.blockCoordinates.apply(
+        lambda x: dict(x)['x'] if x != 0 else 0)
+    shots['blockCoordinates_y'] = shots.blockCoordinates.apply(
+        lambda x: dict(x)['y'] if x != 0 else 0)
+    shots['blockCoordinates_z'] = shots.blockCoordinates.apply(
+        lambda x: dict(x)['z'] if x != 0 else 0)
 
     # one-hot-encode situations
     shots = pd.concat([shots, pd.get_dummies(
@@ -63,9 +75,10 @@ def shotmap_extractor(event_id: str, headers=None):
 
     # clean up extra columns
     shots.drop(['player', 'isHome', 'shotType', 'situation', 'playerCoordinates', 'bodyPart',
-               'goalMouthLocation', 'goalMouthCoordinates', 'draw'], axis=1, inplace=True)
+               'goalMouthLocation', 'goalMouthCoordinates', 'blockCoordinates', 'draw'], axis=1, inplace=True)
 
-    shots.to_csv(f'/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps/{event_id}_shotmap.csv')
+    shots.to_csv(
+        f'/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps/{event_id}_shotmap.csv')
 
 
 def dataset_agglomerator(path: str):
@@ -79,32 +92,25 @@ def dataset_agglomerator(path: str):
         f'datasets/game_shotmaps/{valid_files[0]}').drop('Unnamed: 0', axis=1)
 
     for file in valid_files[0:]:
-        child = pd.read_csv(f'datasets/game_shotmaps/{file}').drop('Unnamed: 0', axis=1)
+        child = pd.read_csv(
+            f'datasets/game_shotmaps/{file}').drop('Unnamed: 0', axis=1)
         parent = pd.concat([parent, child], sort=True)
 
-    parent.to_csv('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_cumulative_shotmap.csv')
+    parent.to_csv(
+        '/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_cumulative_shotmap.csv')
 
 
 if __name__ == '__main__':
-    # events = [11352437, 11352309, 11352407, 10385726, 10385723, 10385694,
-    #           10385651, 10385647, 10385604, 10385610, 10385575, 10385562,
-    #           10385544, 10385504, 10865877, 10385492, 11047942, 10385488,
-    #           10385477, 10865869, 10385466, 10385442, 10980654, 10385437,
-    #           10913242, 10385433, 10909914, 10385414, 10385397, 11352504,
-    #           11352447, 11352495, 11352456, 11352466, 11352524, 11352515,
-    #           11352484, 11352346, 11352418, 11352337, 11352389, 11352358, 
-    #           11352428, 11352367, 11352399, 11352327, 11352316, 11352255, 
-    #           11352254, 11352252, 11352253, 11352250, 11352251, 11352303, 
-    #           11352561, 11352551, 11352594, 1352570, 11352543, 11352551]
+    # open list of completed games
     with open('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_finished_events.csv') as file:
         events = pd.read_csv(file)
- 
-  # displaying the contents of the CSV file
+
+  # extract and compile game shot maps into a cumulative map
         for i, event_id in enumerate(events.event_id):
             try:
                 shotmap_extractor(event_id=event_id, headers=None)
             except KeyError:
                 pass
-        
 
-    dataset_agglomerator('/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps')
+    dataset_agglomerator(
+        '/Users/harrisonward/Desktop/CS/Git/xG/datasets/game_shotmaps')
