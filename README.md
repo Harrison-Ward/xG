@@ -4,7 +4,7 @@ Using data scraped from [SofaScore.com](SofaScore.com), I calculated xG for each
 Using my predicated xG data I have produced a series of visualizations that I will continue to update throughout the season.
 
 ## Premier League by xG Differential
-![](assets/xG_table.md)
+[](assets/xG_table.md)
 
 ## Shot Location by Outcome
 ![](assets/shotmap.png)
