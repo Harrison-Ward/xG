@@ -5,7 +5,7 @@ Using my predicated xG data I have produced a series of visualizations that I wi
 
 ## Premier League by xG Differential
 
-[](assets/xG_table.md)
+[xG Table](assets/xG_table.md)
 
 
 ## Shot Location by Outcome
