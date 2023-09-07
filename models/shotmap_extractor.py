@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import requests
 
 headers = {
@@ -21,6 +22,10 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
     event_df = pd.read_csv(event_filepath)
     completed_event_ids = event_df['event.id'][event_df['event.status.type']
                                                == 'finished'].values
+    
+    # merge in home and away team and match slug
+    event_info_df = event_df[['event.awayTeam.slug', 'event.homeTeam.slug',
+                              'event.slug', 'event.winnerCode', 'event.awayTeam.name', 'event.homeTeam.name', 'event.id']]
 
     # check if event id is already in the shot map dataframe
     shotmap_df = pd.read_csv(shotmap_filepath)
@@ -39,20 +44,22 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
         try:
             temp_df = pd.json_normalize(shot_maps['shotmap'])
             temp_df['event.id'] = completed_event_ids[i]
+            temp_df = temp_df.merge(event_info_df, how='left', left_on='event.id', right_on='event.id')
             shotmap_df = pd.concat([shotmap_df, temp_df], sort=True)
         except KeyError:
             pass
 
-    # merge in home and away team and match slug
-    event_info_df = event_df[['event.awayTeam.slug', 'event.homeTeam.slug',
-                          'event.slug', 'event.winnerCode', 'event.awayTeam.name', 'event.homeTeam.name', 'event.id']]
-
 
     # drop the index column to avoid redundancy
     shotmap_df = shotmap_df.drop('Unnamed: 0', axis=1)
+    
 
-    # merge in event info
-    shotmap_df = shotmap_df.merge(event_info_df, how='left', left_on='event.id', right_on='event.id' )
+    # determine the team the shooter plays for and their opponent
+    shotmap_df['team'] = np.where(shotmap_df['isHome'], shotmap_df['event.homeTeam.slug'], shotmap_df['event.awayTeam.slug'])
+    shotmap_df['opponent'] = np.where(shotmap_df['isHome']==False, shotmap_df['event.homeTeam.slug'], shotmap_df['event.awayTeam.slug'])
+
+
+    # save updated shotmap csv
     shotmap_df.to_csv(shotmap_filepath)
 
 
