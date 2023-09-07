@@ -1,5 +1,10 @@
 # xG ⚽️
-Calculation of xG from premier league games using artificial neural networks. Shot location data web scraped from Sofascore.com
+Using data scraped from [SofaScore.com](SofaScore.com), I calculated xG for each shot taken in the 23/24 Premier League Season using an Artificial Neural Network. 
+
+Using my predicated xG data I have produced a series of visualizations that I will continue to update throughout the season.
+
+## Premier League by xG Differential
+![](assets/xG_table.md)
 
 ## Shot Location by Outcome
 ![](assets/shotmap.png)
