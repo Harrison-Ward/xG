@@ -44,7 +44,15 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
             pass
 
     # merge in home and away team and match slug
+    event_info_df = event_df[['event.awayTeam.slug', 'event.homeTeam.slug',
+                          'event.slug', 'event.winnerCode', 'event.awayTeam.name', 'event.homeTeam.name', 'event.id']]
+
+
+    # drop the index column to avoid redundancy
     shotmap_df = shotmap_df.drop('Unnamed: 0', axis=1)
+
+    # merge in event info
+    shotmap_df = shotmap_df.merge(event_info_df, how='left', left_on='event.id', right_on='event.id' )
     shotmap_df.to_csv(shotmap_filepath)
 
 
