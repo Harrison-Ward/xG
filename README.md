@@ -7,7 +7,7 @@ Using my predicated xG data I have produced a series of visualizations that I wi
 [xG Team Table](assets/xG_table.md)
 
 ## Top 20 Players by xG
-[xG Player Table](assets/xG_player_table.md)
+[xG Player Table](assets/xG_by_player.md)
 
 
 ## Shot Location by Outcome
