@@ -17,7 +17,7 @@ headers = {
 }
 
 
-def shotmap_extractor(event_filepath, shotmap_filepath):
+def shotmap_extractor(event_filepath, shotmap_filepath, headers):
     """
     Extracts and updates shotmap data from SofaScore API and merges it with event information.
 
@@ -42,8 +42,6 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
     event_df = pd.read_csv(event_filepath)
     completed_event_ids = event_df['event.id'][event_df['event.status.type']
                                                == 'finished'].values
-    
-    
 
     # merge in home and away team and match slug
     event_info_df = event_df[['event.awayTeam.slug', 'event.homeTeam.slug',
@@ -57,17 +55,16 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
     new_shotmaps = []
     for event_id in completed_event_ids:
         if event_id not in completed_shotmap_event_ids_set:
-            print(f"Processing event_id: {event_id}")
-            new_shotmaps.append(requests.get(
-                f'https://api.sofascore.com/api/v1/event/{event_id}/shotmap', headers=headers).json())
+            new_shotmaps.append(tuple((event_id, requests.get(f'https://api.sofascore.com/api/v1/event/{event_id}/shotmap', headers=headers).json())))
 
     # add event.id, match data, and binary vars to the shotmap
-    for i, shot_maps in enumerate(new_shotmaps):
-        if completed_event_ids[i] not in completed_shotmap_event_ids_set:
+    added_map_ids = []
+    for event_id, shot_maps in new_shotmaps:
+        if event_id not in completed_shotmap_event_ids_set:
             try:
                 # merge in event data from the events df
                 temp_df = pd.json_normalize(shot_maps['shotmap'])
-                temp_df['event.id'] = completed_event_ids[i]
+                temp_df['event.id'] = event_id
                 temp_df = temp_df.merge(
                     event_info_df, how='left', left_on='event.id', right_on='event.id')
 
@@ -88,16 +85,25 @@ def shotmap_extractor(event_filepath, shotmap_filepath):
                     temp_df['isHome'] == False, temp_df['event.homeTeam.name'], temp_df['event.awayTeam.name'])
 
                 # add the new temporary df to the shotmap data
-                print(completed_event_ids[i])
+                added_map_ids.append(event_id)
                 shotmap_df = pd.concat([shotmap_df, temp_df], sort=True, verify_integrity=True, ignore_index=True)
             except KeyError:
                 print(
-                    f'\nWarning: polluted data\nPolluted Event Id:{completed_event_ids[i]}')
+                    f'\nWarning: polluted data\nPolluted Event Id:{event_id}')
+
+
+    # print the event_id and slug formatted all nice and pretty
+    home_team_names = shotmap_df['event.homeTeam.name'].loc[shotmap_df['event.id'].isin(added_map_ids)].unique()
+    away_team_names = shotmap_df['event.awayTeam.name'].loc[shotmap_df['event.id'].isin(added_map_ids)].unique()
+
+    match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
+
+    for match in match_titles:
+        print(f'New Shotmap Added: {match}')
 
     # save updated shotmap csv
     shotmap_df.to_csv(shotmap_filepath)
 
-
 if __name__ == '__main__':
     shotmap_extractor('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv',
-                      '/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps.csv')
+                      '/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps.csv', headers)
