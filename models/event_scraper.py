@@ -165,13 +165,6 @@ def compile_events(competition_id_head='11352', competition='premier-league'):
         event_id_response_codes.append(tuple((event_id, requests.get(
             f'https://api.sofascore.com/api/v1/event/{competition_id_head}{event_id}', headers=headers).json())))
 
-    # valid_events, invalid_events = [], []
-    # for event_id, event_json in event_id_response_codes:
-    #     try:
-    #         if event_json['event']['tournament']['slug'] == competition:
-    #             valid_events.append(tuple((event_id, event_json)))
-    #     except KeyError:
-    #         invalid_events.append(tuple((event_id, event_json)))
     valid_events, invalid_events = [], []
     for event_id, event_json in event_id_response_codes:
         try:
@@ -221,6 +214,7 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
     uncompleted_events = event_df['event.id'][event_df['event.status.type']
                                               == 'notstarted'].values
 
+    # if the valid_columns var not provided assume its the same as the event_df
     if valid_columns is None:
         valid_columns = event_df.columns
 
@@ -233,7 +227,11 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
     for event in updated_event_info:
         if event['event']['status']['type'] == 'finished':
             new_completed_events.append(event)
-
+    
+    if len(new_completed_events) == 0:
+        print('No new events')
+        exit(0)
+    
     # append the updated json info to the end of the df
     for event in new_completed_events:
         new_completed_events_ids.append(event['event']['id'])
@@ -244,6 +242,20 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
     # append the updated data to the df and save
     event_df = pd.concat([event_df, pd.json_normalize(
         new_completed_events)[valid_columns]], sort=True)
+    
+    # print the event_id and slug event scraped
+    home_team_names = event_df['event.homeTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
+    away_team_names = event_df['event.awayTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
+
+    # home_team_names = [' '.join(event.split('-')) for event in home_team_names]
+    # away_team_names = [' '.join(event.split('-')) for event in away_team_names]
+
+    match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
+
+    for match in match_titles:
+        print(f'New Event Added: {match}')
+    
+    # save and exit
     event_df.to_csv(filepath)
 
 
