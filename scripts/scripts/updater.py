@@ -2,6 +2,9 @@ from event_scraper import update_event_df
 from shotmap_extractor import shotmap_extractor
 import datetime
 import subprocess
+import logging
+
+logging.basicConfig(level=logging.INFO, filename='scripts/logs/updater.log', filemode='a', format='%(asctime)s: %(message)s')
 
 def main():
     headers = {
@@ -21,15 +24,14 @@ def main():
     headers["If-Modified-Since"] = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S")
 
     # might change this so that the main function takes in an argv
-    # add some logging to keep track of the number of events, and events updated
     update_event_df(
-        filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events copy.csv', headers=headers)
-    shotmap_extractor(shotmap_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps2.csv',
-                      event_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events copy.csv', headers=headers)
+        filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv', headers=headers)
+    shotmap_extractor(shotmap_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps.csv',
+                      event_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv', headers=headers)
 
     # push updates to github
     # if you werent a fucking idiot these would all take thier arguments from argv but ...
-    subprocess.run(["/Users/harrisonward/Desktop/CS/Git/xG/update_on_github.sh"])
+    subprocess.run(["/Users/harrisonward/Desktop/CS/Git/xG/scripts/update_on_github.sh"])
 
 
 if __name__ == '__main__':

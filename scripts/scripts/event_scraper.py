@@ -2,6 +2,7 @@ import datetime
 import requests
 import pandas as pd
 import numpy as np
+import logging
 
 
 # find the headers the api needs to accept you
@@ -178,7 +179,7 @@ def compile_events(competition_id_head='11352', competition='premier-league'):
 
     premier_league_df = pd.json_normalize(premier_league_events)
     premier_league_df = premier_league_df[valid_columns]
-    premier_league_df.to_csv('../datasets/23_24_premier_league_events.csv')
+    premier_league_df.to_csv('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv')
 
 
 def update_event_df(filepath: str, headers=headers, valid_columns=None):
@@ -206,6 +207,7 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
       - Other columns as needed for event data.
     - The function relies on external variables 'headers' and 'valid_columns' to be defined.
     """
+    logging.info('Event Scraper searching for updated event info...')
     # init lists to hold updated event info
     updated_event_info, new_completed_events, new_completed_events_ids = [], [], []
 
@@ -229,7 +231,8 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
             new_completed_events.append(event)
     
     if len(new_completed_events) == 0:
-        print('No new events')
+        logging.warning('WARNING: No new events found')
+        logging.info('Event Scraper successfully exited\n\n\n')
         exit(0)
     
     # append the updated json info to the end of the df
@@ -247,18 +250,15 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
     home_team_names = event_df['event.homeTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
     away_team_names = event_df['event.awayTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
 
-    # home_team_names = [' '.join(event.split('-')) for event in home_team_names]
-    # away_team_names = [' '.join(event.split('-')) for event in away_team_names]
-
     match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
 
     for match in match_titles:
-        print(f'New Event Added: {match}')
+        logging.info(f'New Event Added: {match}\n')
     
     # save and exit
     event_df.to_csv(filepath)
 
+    logging.info(f'Event Scraper succesfully updated {len(match_titles)} new events\n')
+    logging.info(f'Event Scraper succesfully exited\n')
+    return 0
 
-if __name__ == "__main__":
-    update_event_df(
-        '/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv')

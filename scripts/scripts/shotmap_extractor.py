@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import requests
+import logging
 
 headers = {
     'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0',
@@ -38,6 +39,7 @@ def shotmap_extractor(event_filepath, shotmap_filepath, headers):
     Note: The function relies on external data sources and assumes specific column names in the CSV files.
 
     """
+    logging.info('Shotmap Extractor searching for new shotmaps...')
     # load the event df and the list of finished events
     event_df = pd.read_csv(event_filepath)
     completed_event_ids = event_df['event.id'][event_df['event.status.type']
@@ -88,8 +90,7 @@ def shotmap_extractor(event_filepath, shotmap_filepath, headers):
                 added_map_ids.append(event_id)
                 shotmap_df = pd.concat([shotmap_df, temp_df], sort=True, verify_integrity=True, ignore_index=True)
             except KeyError:
-                print(
-                    f'\nWarning: polluted data\nPolluted Event Id:{event_id}')
+                logging.error(f'Warning: Polluted Event Id:{event_id}\n')
 
 
     # print the event_id and slug formatted all nice and pretty
@@ -99,10 +100,13 @@ def shotmap_extractor(event_filepath, shotmap_filepath, headers):
     match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
 
     for match in match_titles:
-        print(f'New Shotmap Added: {match}')
+        logging.info(f'New Shotmap Added: {match}\n')
 
     # save updated shotmap csv
     shotmap_df.to_csv(shotmap_filepath)
+    logging.info(f'Shotmap Extractor succesfully added {len(match_titles)} new shotmaps\n')
+    logging.info(f'Shotmap Extractor succesfully exited\n\n\n')
+    return 0
 
 if __name__ == '__main__':
     shotmap_extractor('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv',

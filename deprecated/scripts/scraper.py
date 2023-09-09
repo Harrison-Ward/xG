@@ -38,6 +38,11 @@ def shotmap_extractor(event_id: str, headers=None):
     # take name slug and id info from player name
     shots['name'] = shots.player.apply(lambda x: dict(x)['slug'])
     shots['playerId'] = shots.player.apply(lambda x: dict(x)['id'])
+    shots['event_id'] = event_id
+
+    # search for the corresponding event in the event_df
+
+    # determine which side the player is competing for
 
     # unpack player coordinates into seperate vars
     shots['player_x'] = shots.playerCoordinates.apply(
