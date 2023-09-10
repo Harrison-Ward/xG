@@ -1,22 +1,22 @@
 |    | Player          |      xG | Team                   |
 |---:|:----------------|--------:|:-----------------------|
-|  1 | Erling Haaland  | 3.5762  | Manchester City        |
-|  2 | Bryan Mbeumo    | 3.23838 | Brentford              |
-|  3 | Nicolas Jackson | 2.72707 | Chelsea                |
-|  4 | Yoane Wissa     | 2.65079 | Brentford              |
-|  5 | Evan Ferguson   | 2.40955 | Brighton & Hove Albion |
-|  6 | Arnaut Danjuma  | 2.19412 | Everton                |
-|  7 | Edward Nketiah  | 2.14103 | Arsenal                |
-|  8 | Dominic Solanke | 2.12026 | Bournemouth            |
-|  9 | Bukayo Saka     | 2.11768 | Arsenal                |
-| 10 | Taiwo Awoniyi   | 2.07615 | Nottingham Forest      |
-| 11 | Matty Cash      | 2.02103 | Aston Villa            |
-| 12 | Alexander Isak  | 1.98539 | Newcastle United       |
-| 13 | Fábio Silva     | 1.97986 | Wolverhampton          |
-| 14 | James Maddison  | 1.91425 | Tottenham Hotspur      |
-| 15 | Marcus Rashford | 1.88097 | Manchester United      |
-| 16 | Luis Díaz       | 1.85749 | Liverpool              |
-| 17 | Jarrod Bowen    | 1.8245  | West Ham United        |
-| 18 | Julián Álvarez  | 1.82238 | Manchester City        |
-| 19 | Ollie Watkins   | 1.82048 | Aston Villa            |
-| 20 | Neal Maupay     | 1.80812 | Everton                |
+|  1 | Erling Haaland  | 5.47818 | Manchester City        |
+|  2 | Bryan Mbeumo    | 3.23361 | Brentford              |
+|  3 | Jarrod Bowen    | 3.20226 | West Ham United        |
+|  4 | Evan Ferguson   | 3.06225 | Brighton & Hove Albion |
+|  5 | Taiwo Awoniyi   | 2.66667 | Nottingham Forest      |
+|  6 | Yoane Wissa     | 2.47606 | Brentford              |
+|  7 | Matty Cash      | 2.44996 | Aston Villa            |
+|  8 | Odsonne Édouard | 2.43685 | Crystal Palace         |
+|  9 | James Maddison  | 2.27714 | Tottenham Hotspur      |
+| 10 | Alexander Isak  | 2.17073 | Newcastle United       |
+| 11 | Julián Álvarez  | 2.12146 | Manchester City        |
+| 12 | Mohamed Salah   | 2.10917 | Liverpool              |
+| 13 | Heung-min Son   | 2.06967 | Tottenham Hotspur      |
+| 14 | Bukayo Saka     | 1.85722 | Arsenal                |
+| 15 | Solly March     | 1.84833 | Brighton & Hove Albion |
+| 16 | Michail Antonio | 1.81089 | West Ham United        |
+| 17 | Luis Díaz       | 1.76643 | Liverpool              |
+| 18 | Arnaut Danjuma  | 1.75447 | Everton                |
+| 19 | Callum Wilson   | 1.73825 | Newcastle United       |
+| 20 | Dominic Solanke | 1.7376  | Bournemouth            |
