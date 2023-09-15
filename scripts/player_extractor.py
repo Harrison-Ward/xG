@@ -4,7 +4,7 @@ import requests
 import logging
 
 
-def player_extractor_compiler(shotmap_filepath, player_event_filepath, headers):
+def player_event_compiler(shotmap_filepath, player_event_filepath, headers):
     """
     Extracts player statistics by event from a shotmap CSV file and compiles them into a new CSV file.
 
@@ -23,6 +23,7 @@ def player_extractor_compiler(shotmap_filepath, player_event_filepath, headers):
     Example usage:
     player_extractor_compiler('shotmap.csv', 'player_event_stats.csv', {'Authorization': 'Bearer <token>'})
     """
+    logging.info('Player Events Extractor compiling new Player Events data...')
     # read in the shotmap and find player, event id pairs
     shotmap_df = pd.read_csv(shotmap_filepath, index_col='Unnamed: 0')
     player_event_ids = np.unique(
@@ -41,9 +42,12 @@ def player_extractor_compiler(shotmap_filepath, player_event_filepath, headers):
 
     # export the dataframe to csv
     player_event_stats_df.to_csv(player_event_filepath)
+    logging.info(
+        f'Player Events Compilier succesfully added {player_event_stats.shape[0]} new shotmaps\n')
+    logging.info(f'Player Events Compilier succesfully exited\n\n\n')
 
 
-def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
+def player_event_updater(shotmap_filepath, player_event_filepath, headers):
     """
     Update and append player statistics by event from a shotmap CSV file to an existing player event statistics CSV file.
 
@@ -62,6 +66,8 @@ def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
     Example usage:
     player_extractor_updater('shotmap.csv', 'player_event_stats.csv', {'Authorization': 'Bearer <token>'})
     """
+    logging.info(
+        'Player Events Updater searching for new player events data...')
     # read in both the shotmap and player_event stats
     shotmap_df = pd.read_csv(shotmap_filepath, index_col='Unnamed: 0')
     player_event_stats_df = pd.read_csv(
@@ -81,6 +87,12 @@ def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
     new_player_event_ids = np.array([row for row in all_player_event_ids if tuple(
         row) not in stored_player_event_ids_set])
 
+    # exit if no new events are found
+    if new_player_event_ids.shape[0] == 0:
+        logging.warning('WARNING: No new player event data found')
+        logging.info('Player Updater successfully exited\n\n\n')
+        return 0
+
     # request new player statitstics by event
     new_player_event_stats = []
     for player_id, event_id in new_player_event_ids:
@@ -98,3 +110,6 @@ def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
 
     # export the dataframe to csv
     player_event_stats_df.to_csv(player_event_filepath)
+    logging.info(
+        f'Player Events Updater succesfully added {new_player_event_stats.shape[0]} new shotmaps\n')
+    logging.info(f'Player Events Updater succesfully exited\n\n\n')
