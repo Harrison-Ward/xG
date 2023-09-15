@@ -1,5 +1,5 @@
 from event_scraper import event_updater
-from shotmap_extractor import shotmap_extractor
+from shotmap_extractor import shotmap_updater
 from player_extractor import player_event_updater
 import datetime
 import subprocess
@@ -31,7 +31,7 @@ def main():
     event_updater(
         event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
     
-    shotmap_extractor(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
+    shotmap_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
                       event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
     
     player_event_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
