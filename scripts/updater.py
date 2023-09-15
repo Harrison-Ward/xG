@@ -1,4 +1,4 @@
-from event_scraper import update_event_df
+from event_scraper import event_updater
 from shotmap_extractor import shotmap_extractor
 from player_extractor import player_event_updater
 import datetime
@@ -28,8 +28,8 @@ def main():
 
     path_header = '/Users/harrisonward/Desktop/CS/Git/xG/datasets'
 
-    update_event_df(
-        filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
+    event_updater(
+        event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
     
     shotmap_extractor(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
                       event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)

@@ -131,7 +131,7 @@ valid_columns = ['event.tournament.uniqueTournament.hasEventPlayerStatistics',
 headers["If-Modified-Since"] = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S")
 
 
-def compile_events(competition_id_head='11352', competition='premier-league'):
+def event_compiler(competition_id_head='11352', competition='premier-league'):
     """
     Collects match data for events in the specified competition.
 
@@ -182,7 +182,7 @@ def compile_events(competition_id_head='11352', competition='premier-league'):
     premier_league_df.to_csv('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv')
 
 
-def update_event_df(filepath: str, headers=headers, valid_columns=None):
+def event_updater(event_filepath: str, headers=headers, valid_columns=None):
     """
     Updates an event DataFrame with new information from an external API.
 
@@ -212,7 +212,7 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
     updated_event_info, new_completed_events, new_completed_events_ids = [], [], []
 
     # follow the laziest possible procedure to check for new events, check every unstarted event
-    event_df = pd.read_csv(filepath, index_col='Unnamed: 0')
+    event_df = pd.read_csv(event_filepath, index_col='Unnamed: 0')
     uncompleted_events = event_df['event.id'][event_df['event.status.type']
                                               == 'notstarted'].values
 
@@ -256,7 +256,7 @@ def update_event_df(filepath: str, headers=headers, valid_columns=None):
         logging.info(f'New Event Added: {match}\n')
     
     # save and exit
-    event_df.to_csv(filepath)
+    event_df.to_csv(event_filepath)
 
     logging.info(f'Event Scraper succesfully updated {len(match_titles)} new events\n')
     logging.info(f'Event Scraper succesfully exited\n')
