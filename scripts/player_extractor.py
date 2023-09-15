@@ -4,7 +4,25 @@ import requests
 import logging
 
 
-def player_extractor_compiler(shotmap_filepath, headers):
+def player_extractor_compiler(shotmap_filepath, player_event_filepath, headers):
+    """
+    Extracts player statistics by event from a shotmap CSV file and compiles them into a new CSV file.
+
+    Parameters:
+    - shotmap_filepath (str): The file path to the shotmap CSV file containing player and event data.
+    - player_event_filepath (str): The file path to save the compiled player event statistics as a CSV file.
+    - headers (dict): A dictionary containing headers for making HTTP requests (e.g., authorization).
+
+    Returns:
+    None
+
+    This function reads the shotmap CSV file, extracts unique player and event ID pairs, 
+    requests player statistics for each pair from an API, compiles the statistics into a DataFrame, 
+    and exports the DataFrame as a CSV file.
+
+    Example usage:
+    player_extractor_compiler('shotmap.csv', 'player_event_stats.csv', {'Authorization': 'Bearer <token>'})
+    """
     # read in the shotmap and find player, event id pairs
     shotmap_df = pd.read_csv(shotmap_filepath, index_col='Unnamed: 0')
     player_event_ids = np.unique(
@@ -19,28 +37,49 @@ def player_extractor_compiler(shotmap_filepath, headers):
 
     # create data frame and add event_id to each row of the dataframe
     player_event_stats_df = pd.json_normalize(player_event_stats)
-    player_event_stats_df['event.id'] = player_event_ids[::,1]
+    player_event_stats_df['event.id'] = player_event_ids[::, 1]
 
     # export the dataframe to csv
-    player_event_stats_df.to_csv('/Users/harrisonward/Desktop/23_24_player_event_stats.csv')
-
+    player_event_stats_df.to_csv(player_event_filepath)
 
 
 def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
+    """
+    Update and append player statistics by event from a shotmap CSV file to an existing player event statistics CSV file.
+
+    Parameters:
+    - shotmap_filepath (str): The file path to the shotmap CSV file containing player and event data.
+    - player_event_filepath (str): The file path to the existing player event statistics CSV file.
+    - headers (dict): A dictionary containing headers for making HTTP requests (e.g., authorization).
+
+    Returns:
+    None
+
+    This function reads both the shotmap and existing player event statistics CSV files, 
+    identifies new player-event pairings in the shotmap, requests statistics for these new pairs from an API, 
+    and appends the new player event statistics to the existing CSV file.
+
+    Example usage:
+    player_extractor_updater('shotmap.csv', 'player_event_stats.csv', {'Authorization': 'Bearer <token>'})
+    """
     # read in both the shotmap and player_event stats
     shotmap_df = pd.read_csv(shotmap_filepath, index_col='Unnamed: 0')
-    player_event_stats_df = pd.read_csv(player_event_filepath, index_col='Unnamed: 0')
+    player_event_stats_df = pd.read_csv(
+        player_event_filepath, index_col='Unnamed: 0')
 
     # record the new and stored player_event pairings
-    all_player_event_ids = np.unique(shotmap_df[['player.id', 'event.id']].values, axis=0)
-    stored_player_event_ids = np.unique(player_event_stats_df[['player.id', 'event.id']].values, axis=0)
+    all_player_event_ids = np.unique(
+        shotmap_df[['player.id', 'event.id']].values, axis=0)
+    stored_player_event_ids = np.unique(
+        player_event_stats_df[['player.id', 'event.id']].values, axis=0)
 
     # create tuple for each row
-    all_player_event_ids_set = [tuple(row) for row in all_player_event_ids]
-    stored_player_event_ids_set = [tuple(row) for row in stored_player_event_ids]
+    stored_player_event_ids_set = [tuple(row)
+                                   for row in stored_player_event_ids]
 
     # check the difference between the two set lists
-    new_player_event_ids = np.array([row for row in all_player_event_ids if tuple(row) not in stored_player_event_ids_set])
+    new_player_event_ids = np.array([row for row in all_player_event_ids if tuple(
+        row) not in stored_player_event_ids_set])
 
     # request new player statitstics by event
     new_player_event_stats = []
@@ -48,35 +87,14 @@ def player_extractor_updater(shotmap_filepath, player_event_filepath, headers):
         json_data = requests.get(
             f'https://api.sofascore.com/api/v1/event/{event_id}/player/{player_id}/statistics', headers=headers).json()
         new_player_event_stats.append(json_data)
-    
+
     # create a short dataframe of new player event data to append to the existing dataframe
     new_player_event_stats_df = pd.json_normalize(new_player_event_stats)
-    new_player_event_stats_df['event.id'] = new_player_event_ids[::,1]
+    new_player_event_stats_df['event.id'] = new_player_event_ids[::, 1]
 
     # concatenate the new dataframe and existing dataframe
-    player_event_stats_df = pd.concat([player_event_stats_df, new_player_event_stats_df], sort=True,  verify_integrity=False, ignore_index=True)
+    player_event_stats_df = pd.concat(
+        [player_event_stats_df, new_player_event_stats_df], sort=True,  verify_integrity=False, ignore_index=True)
 
     # export the dataframe to csv
-    player_event_stats_df.to_csv('/Users/harrisonward/Desktop/23_24_player_event_stats2.csv')
-
-if __name__ == '__main__':
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:109.0) Gecko/20100101 Firefox/116.0',
-        'Accept': '*/*',
-        'Accept-Language': 'en-US,en;q=0.5',
-        'Referer': 'https://www.sofascore.com/',
-        'Origin': 'https://www.sofascore.com',
-        'Connection': 'keep-alive',
-        'Sec-Fetch-Dest': 'empty',
-        'Sec-Fetch-Mode': 'cors',
-        'Sec-Fetch-Site': 'same-site',
-        'If-None-Match': 'W/"8acfad2dd3"',
-        'Cache-Control': 'max-age=0',
-    }
-
-    # player_extractor_compiler(shotmap_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps.csv',
-    #                  headers=headers)
-    
-    player_extractor_updater(shotmap_filepath='/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_shotmaps.csv',
-                             player_event_filepath= '/Users/harrisonward/Desktop/player_event_stats.csv',
-                             headers=headers)
+    player_event_stats_df.to_csv(player_event_filepath)
