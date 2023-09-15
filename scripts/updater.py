@@ -1,3 +1,4 @@
+from augmented_shotmap_compilier import augmented_shotmap_compilier
 from event_scraper import event_updater
 from shotmap_extractor import shotmap_updater
 from player_extractor import player_event_updater
@@ -30,12 +31,15 @@ def main():
 
     event_updater(
         event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
-    
+
     shotmap_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
-                      event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
-    
+                    event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
+
     player_event_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
-                             player_event_filepath=f'{path_header}/23_24_player_event_stats.csv', headers=headers)
+                         player_event_filepath=f'{path_header}/23_24_player_event_stats.csv', headers=headers)
+
+    augmented_shotmap_compilier(augmented_shotmap_filepath=f'{path_header}/23_24_shotmaps_augmented.csv',
+                                player_event_filepath=f'{path_header}/23_24_player_event_stats.csv')
 
     subprocess.run(
         ["/Users/harrisonward/Desktop/CS/Git/xG/scripts/update_on_github.sh"])
