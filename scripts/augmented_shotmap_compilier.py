@@ -39,15 +39,16 @@ def augmented_shotmap_compilier(augmented_shotmap_filepath, player_event_filepat
     # check the difference between the two set lists
     new_player_event_ids = np.array([row for row in new_player_event_ids if tuple(
         row) not in stored_player_event_ids_set])
-
-    # take the data we are interested in from the player dataframe
-    player_match_data = player_df.loc[(player_df['player.id'].isin(new_player_event_ids)) & (player_df['event.id'].isin(
-        new_player_event_ids)), ['event.id', 'player.id', 'statistics.minutesPlayed', 'statistics.expectedAssists', 'player.position']]
-
-    if player_match_data.shape[0] == 0:
+    
+    if new_player_event_ids.shape[0]==0:
         logging.warning('WARNING: No new player event data to merge')
         logging.info('Augmented Shotmap Compilier successfully exited\n\n\n')
         return 0
+
+    # take the data we are interested in from the player dataframe
+    player_match_data = player_df[['event.id', 'player.id', 'statistics.minutesPlayed', 'statistics.expectedAssists']].merge(
+        pd.DataFrame(new_player_event_ids), on=['event.id', 'player.id'], how='inner')
+
 
     # merge the player data on the event and player id
     augmented_shotmap_df = augmented_shotmap_df.merge(right=player_match_data, how='left', left_on=[
