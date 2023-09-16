@@ -1,22 +1,22 @@
-|    | Player          |    xG | Team                   |
-|---:|:----------------|------:|:-----------------------|
-|  1 | Erling Haaland  | 5.158 | Manchester City        |
-|  2 | Jarrod Bowen    | 2.974 | West Ham United        |
-|  3 | Bryan Mbeumo    | 2.923 | Brentford              |
-|  4 | Evan Ferguson   | 2.856 | Brighton & Hove Albion |
-|  5 | Taiwo Awoniyi   | 2.529 | Nottingham Forest      |
-|  6 | Yoane Wissa     | 2.391 | Brentford              |
-|  7 | Alexander Isak  | 2.39  | Newcastle United       |
-|  8 | James Maddison  | 2.353 | Tottenham Hotspur      |
-|  9 | Odsonne Édouard | 2.293 | Crystal Palace         |
-| 10 | Matty Cash      | 2.289 | Aston Villa            |
-| 11 | Mohamed Salah   | 2.217 | Liverpool              |
-| 12 | Bukayo Saka     | 2.052 | Arsenal                |
-| 13 | Julián Álvarez  | 1.98  | Manchester City        |
-| 14 | Nicolas Jackson | 1.914 | Chelsea                |
-| 15 | Dominic Solanke | 1.791 | Bournemouth            |
-| 16 | Arnaut Danjuma  | 1.778 | Everton                |
-| 17 | Heung-min Son   | 1.777 | Tottenham Hotspur      |
-| 18 | Solly March     | 1.673 | Brighton & Hove Albion |
-| 19 | Raheem Sterling | 1.671 | Chelsea                |
-| 20 | Rodri           | 1.646 | Manchester City        |
+|    | Player          |   xG | Position   | Team                   |
+|---:|:----------------|-----:|:-----------|:-----------------------|
+|  1 | Erling Haaland  | 5.34 | F          | Manchester City        |
+|  2 | Bryan Mbeumo    | 3.34 | F          | Brentford              |
+|  3 | Jarrod Bowen    | 3.23 | M          | West Ham United        |
+|  4 | Evan Ferguson   | 2.93 | F          | Brighton & Hove Albion |
+|  5 | Taiwo Awoniyi   | 2.68 | F          | Nottingham Forest      |
+|  6 | Yoane Wissa     | 2.51 | F          | Brentford              |
+|  7 | Matty Cash      | 2.44 | D          | Aston Villa            |
+|  8 | Odsonne Édouard | 2.35 | F          | Crystal Palace         |
+|  9 | Alexander Isak  | 2.23 | F          | Newcastle United       |
+| 10 | James Maddison  | 2.19 | M          | Tottenham Hotspur      |
+| 11 | Mohamed Salah   | 2.19 | F          | Liverpool              |
+| 12 | Julián Álvarez  | 2.14 | F          | Manchester City        |
+| 13 | Heung-min Son   | 2.06 | F          | Tottenham Hotspur      |
+| 14 | Bukayo Saka     | 2.01 | F          | Arsenal                |
+| 15 | Nicolas Jackson | 1.84 | F          | Chelsea                |
+| 16 | Solly March     | 1.74 | M          | Brighton & Hove Albion |
+| 17 | Rodri           | 1.7  | M          | Manchester City        |
+| 18 | Luis Díaz       | 1.69 | F          | Liverpool              |
+| 19 | Arnaut Danjuma  | 1.66 | F          | Everton                |
+| 20 | Michail Antonio | 1.65 | F          | West Ham United        |
