@@ -90,7 +90,7 @@ def shotmap_updater(event_filepath, shotmap_filepath, headers):
                 added_map_ids.append(event_id)
                 shotmap_df = pd.concat([shotmap_df, temp_df], sort=True, verify_integrity=True, ignore_index=True)
             except KeyError:
-                logging.error(f'Warning: Polluted Event Id:{event_id}\n')
+                logging.error(f'Warning: Polluted Event Id:{event_id}')
 
 
     # print the event_id and slug formatted all nice and pretty
@@ -100,10 +100,10 @@ def shotmap_updater(event_filepath, shotmap_filepath, headers):
     match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
 
     for match in match_titles:
-        logging.info(f'New Shotmap Added: {match}\n')
+        logging.info(f'New Shotmap Added: {match}')
 
     # save updated shotmap csv
     shotmap_df.to_csv(shotmap_filepath)
-    logging.info(f'Shotmap Extractor succesfully added {len(match_titles)} new shotmaps\n')
-    logging.info(f'Shotmap Extractor succesfully exited\n\n\n')
+    logging.info(f'Shotmap Extractor succesfully added {len(match_titles)} new shotmaps')
+    logging.info(f'Shotmap Extractor succesfully exited')
     return 0
