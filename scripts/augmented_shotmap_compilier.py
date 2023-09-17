@@ -46,8 +46,8 @@ def augmented_shotmap_compilier(augmented_shotmap_filepath, player_event_filepat
         return 0
 
     # take the data we are interested in from the player dataframe
-    player_match_data = player_df[['event.id', 'player.id', 'statistics.minutesPlayed', 'statistics.expectedAssists']].merge(
-        pd.DataFrame(new_player_event_ids), on=['event.id', 'player.id'], how='inner')
+    player_match_data = player_df[['player.id', 'event.id', 'statistics.minutesPlayed', 'statistics.expectedAssists']].merge(
+        pd.DataFrame(new_player_event_ids, columns=['player.id', 'event.id']), on=['event.id', 'player.id'], how='inner')
 
 
     # merge the player data on the event and player id
