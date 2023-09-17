@@ -207,7 +207,7 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
       - Other columns as needed for event data.
     - The function relies on external variables 'headers' and 'valid_columns' to be defined.
     """
-    logging.info('Event Scraper searching for updated event info...')
+    logging.info('\nEvent Scraper searching for updated event info...')
     # init lists to hold updated event info
     updated_event_info, new_completed_events, new_completed_events_ids = [], [], []
 
@@ -253,7 +253,7 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
     match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
 
     for match in match_titles:
-        logging.info(f'New Event Added: {match}\n')
+        logging.info(f'New Event Added: {match}')
     
     # save and exit
     event_df.to_csv(event_filepath)

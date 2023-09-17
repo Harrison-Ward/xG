@@ -43,8 +43,8 @@ def player_event_compiler(shotmap_filepath, player_event_filepath, headers):
     # export the dataframe to csv
     player_event_stats_df.to_csv(player_event_filepath)
     logging.info(
-        f'Player Events Compilier succesfully added {player_event_stats.shape[0]} new shotmaps\n')
-    logging.info(f'Player Events Compilier succesfully exited\n\n\n')
+        f'Player Events Compilier succesfully added {player_event_stats.shape[0]} new shotmaps')
+    logging.info(f'Player Events Compilier succesfully exited')
 
 
 def player_event_updater(shotmap_filepath, player_event_filepath, headers):
@@ -90,7 +90,7 @@ def player_event_updater(shotmap_filepath, player_event_filepath, headers):
     # exit if no new events are found
     if new_player_event_ids.shape[0] == 0:
         logging.warning('WARNING: No new player event data found')
-        logging.info('Player Updater successfully exited\n\n\n')
+        logging.info('Player Updater successfully exited')
         return 0
 
     # request new player statitstics by event
@@ -111,5 +111,5 @@ def player_event_updater(shotmap_filepath, player_event_filepath, headers):
     # export the dataframe to csv
     player_event_stats_df.to_csv(player_event_filepath)
     logging.info(
-        f'Player Events Updater succesfully added {new_player_event_stats.shape[0]} new shotmaps\n')
-    logging.info(f'Player Events Updater succesfully exited\n\n\n')
+        f'Player Events Updater succesfully added {new_player_event_stats_df.shape[0]} new player stats')
+    logging.info(f'Player Events Updater succesfully exited')
