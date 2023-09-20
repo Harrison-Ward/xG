@@ -2,3 +2,23 @@
 
 
 
+2023-09-19 21:42:26,779: Event Scraper searching for updated event info...
+2023-09-19 21:43:08,395: Event Scraper searching for updated event info...
+2023-09-19 21:43:48,931: Event Scraper searching for updated event info...
+2023-09-19 21:44:02,937: Event Scraper searching for updated event info...
+2023-09-19 21:44:02,961: WARNING: No new events found
+2023-09-19 21:44:02,962: Event Scraper successfully exited
+
+
+
+2023-09-19 21:44:02,962: Shotmap Extractor searching for new shotmaps...
+2023-09-19 21:44:02,993: WARNING: No new shotmaps found
+2023-09-19 21:44:02,993: Shotmap Extractor sucessfully exited
+2023-09-19 21:44:02,993: Player Events Updater searching for new player events data...
+2023-09-19 21:44:03,032: WARNING: No new player event data found
+2023-09-19 21:44:03,032: Player Updater successfully exited
+2023-09-19 21:44:03,032: Augmented Shotmap compilier started...
+2023-09-19 21:44:03,160: Augmented Shotmap Compilier sucessfully exited
+2023-09-19 21:44:03: Starting the update_on_github.sh script
+2023-09-19 21:44:04: Script execution completed
+
