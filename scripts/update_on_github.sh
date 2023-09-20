@@ -30,3 +30,6 @@ git push origin main
 # Log another message
 log "Script execution completed"
 
+# Add some white space 
+echo "" >> "$log_file"
+
