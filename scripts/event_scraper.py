@@ -179,7 +179,8 @@ def event_compiler(competition_id_head='11352', competition='premier-league'):
 
     premier_league_df = pd.json_normalize(premier_league_events)
     premier_league_df = premier_league_df[valid_columns]
-    premier_league_df.to_csv('/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv')
+    premier_league_df.to_csv(
+        '/Users/harrisonward/Desktop/CS/Git/xG/datasets/23_24_premier_league_events.csv')
 
 
 def event_updater(event_filepath: str, headers=headers, valid_columns=None):
@@ -213,28 +214,39 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
 
     # follow the laziest possible procedure to check for new events, check every unstarted event
     event_df = pd.read_csv(event_filepath, index_col='Unnamed: 0')
-    uncompleted_events = event_df['event.id'][event_df['event.status.type']
-                                              == 'notstarted'].values
 
     # if the valid_columns var not provided assume its the same as the event_df
     if valid_columns is None:
         valid_columns = event_df.columns
 
+    # pull the event_id and timestamp of all uncompleted events
+    uncompleted_event_start_data = event_df[[
+        'event.id', 'event.startTimestamp']][event_df['event.status.type'] == 'notstarted'].values
+
+    # compare the current time to the event start times; store the events that have already occured
+    current_datetime = datetime.datetime.now()
+    event_start_times = np.array([[event_id, datetime.datetime.fromtimestamp(
+        timestamp)] for event_id, timestamp in uncompleted_event_start_data])
+
+    # take the event ids from the array of event id, time stamp tuples
+    completed_events = uncompleted_event_start_data[np.where(
+        event_start_times[:, 1] < current_datetime)][:, 0]
+
     # fetch updated json data for the uncompleted events
-    for event_id in uncompleted_events:
+    for event_id in completed_events:
         updated_event_info.append(requests.get(
             f'https://api.sofascore.com/api/v1/event/{event_id}', headers=headers).json())
 
-    # check if the event has been completed
+    # double check if the event has been completed
     for event in updated_event_info:
         if event['event']['status']['type'] == 'finished':
             new_completed_events.append(event)
-    
+
     if len(new_completed_events) == 0:
         logging.warning('WARNING: No new events found')
         logging.info('Event Scraper successfully exited\n\n\n')
         return 0
-    
+
     # append the updated json info to the end of the df
     for event in new_completed_events:
         new_completed_events_ids.append(event['event']['id'])
@@ -245,20 +257,23 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
     # append the updated data to the df and save
     event_df = pd.concat([event_df, pd.json_normalize(
         new_completed_events)[valid_columns]], sort=True)
-    
-    # print the event_id and slug event scraped
-    home_team_names = event_df['event.homeTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
-    away_team_names = event_df['event.awayTeam.name'].loc[event_df['event.id'].isin(new_completed_events_ids)]
 
-    match_titles = [f'{home} vs {away}' for home,away in zip(home_team_names, away_team_names)]
+    # print the event_id and slug event scraped
+    home_team_names = event_df['event.homeTeam.name'].loc[event_df['event.id'].isin(
+        new_completed_events_ids)]
+    away_team_names = event_df['event.awayTeam.name'].loc[event_df['event.id'].isin(
+        new_completed_events_ids)]
+
+    match_titles = [f'{home} vs {away}' for home,
+                    away in zip(home_team_names, away_team_names)]
 
     for match in match_titles:
         logging.info(f'New Event Added: {match}')
-    
+
     # save and exit
     event_df.to_csv(event_filepath)
 
-    logging.info(f'Event Scraper succesfully updated {len(match_titles)} new events\n')
+    logging.info(
+        f'Event Scraper succesfully updated {len(match_titles)} new events\n')
     logging.info(f'Event Scraper succesfully exited\n')
     return 0
-
