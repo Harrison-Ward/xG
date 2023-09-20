@@ -207,7 +207,7 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
       - Other columns as needed for event data.
     - The function relies on external variables 'headers' and 'valid_columns' to be defined.
     """
-    logging.info('\nEvent Scraper searching for updated event info...')
+    logging.info('Event Scraper searching for updated event info...')
     # init lists to hold updated event info
     updated_event_info, new_completed_events, new_completed_events_ids = [], [], []
 
