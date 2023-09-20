@@ -22,39 +22,43 @@ def augmented_shotmap_compilier(augmented_shotmap_filepath, player_event_filepat
     augmented_shotmap_compilier('augmented_shotmap.csv', 'player_event_stats.csv')
     """
     logging.info('Augmented Shotmap compilier started...')
+
     # read in the augmented shotmap and player events dataframe to make merges
     player_df = pd.read_csv(player_event_filepath, index_col='Unnamed: 0')
     augmented_shotmap_df = pd.read_csv(
         augmented_shotmap_filepath, index_col='Unnamed: 0')
 
+    # check which player.id, event.id tuples are in the shotmap vs player stats dfs
     new_player_event_ids = np.unique(
         player_df[['player.id', 'event.id']].values, axis=0)
     stored_player_event_ids = np.unique(
         augmented_shotmap_df[['player.id', 'event.id']], axis=0)
 
     # check if any rows are not in the shotmap dataframe
-    stored_player_event_ids_set = [tuple(row)
-                                   for row in stored_player_event_ids]
+    stored_player_event_ids_tuples = [tuple(row)
+                                      for row in stored_player_event_ids]
 
     # check the difference between the two set lists
     new_player_event_ids = np.array([row for row in new_player_event_ids if tuple(
-        row) not in stored_player_event_ids_set])
-    
-    if new_player_event_ids.shape[0]==0:
+        row) not in stored_player_event_ids_tuples])
+
+    if new_player_event_ids.shape[0] == 0:
         logging.warning('WARNING: No new player event data to merge')
-        logging.info('Augmented Shotmap Compilier successfully exited\n\n\n')
+        logging.info('Augmented Shotmap Compilier successfully exited')
         return 0
 
-    # take the data we are interested in from the player dataframe
-    player_match_data = player_df[['player.id', 'event.id', 'statistics.minutesPlayed', 'statistics.expectedAssists']].merge(
-        pd.DataFrame(new_player_event_ids, columns=['player.id', 'event.id']), on=['event.id', 'player.id'], how='inner')
+    # just drop the whole column and remerge it back on to manage the mismatch in lengths that would be created otherwise
+    try:
+        augmented_shotmap_df = augmented_shotmap_df.drop(
+            columns=['statistics.minutesPlayed', 'statistics.expectedAssists'], axis=1)
+    except KeyError as e:
+        logging.warning(
+            f"WARNING: {e.args}, were not found in the augmented_shotmap df when trying to refresh data")
 
-
-    # merge the player data on the event and player id
-    augmented_shotmap_df = augmented_shotmap_df.merge(right=player_match_data, how='left', left_on=[
-        'event.id', 'player.id'], right_on=['event.id', 'player.id'])
+    augmented_shotmap_df = augmented_shotmap_df.merge(right=player_df[['player.id', 'event.id', 'statistics.minutesPlayed', 'statistics.expectedAssists']], how='left', on=[
+        'player.id', 'event.id'])
 
     # save the augmented shotmap dataframe
     augmented_shotmap_df.to_csv(augmented_shotmap_filepath)
-    logging.info('Augmented Shotmap compilier sucessfully exited...')
+    logging.info('Augmented Shotmap Compilier sucessfully exited')
     return 0
