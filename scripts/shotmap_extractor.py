@@ -59,6 +59,12 @@ def shotmap_updater(event_filepath, shotmap_filepath, headers):
         if event_id not in completed_shotmap_event_ids_set:
             new_shotmaps.append(tuple((event_id, requests.get(f'https://api.sofascore.com/api/v1/event/{event_id}/shotmap', headers=headers).json())))
 
+    # if there are no new shotmaps, return out of the function
+    if len(new_shotmaps) == 0:
+        logging.warning('WARNING: No new shotmaps found')
+        logging.info('Shotmap Extractor sucessfully exited')
+        return 0
+
     # add event.id, match data, and binary vars to the shotmap
     added_map_ids = []
     for event_id, shot_maps in new_shotmaps:
