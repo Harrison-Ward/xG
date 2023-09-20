@@ -27,22 +27,28 @@ def main():
 
     headers["If-Modified-Since"] = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S")
 
-    path_header = '/Users/harrisonward/Desktop/CS/Git/xG/datasets'
+    datasets_path_head = '/Users/harrisonward/Desktop/CS/Git/xG/datasets'
+    scripts_path_head = '/Users/harrisonward/Desktop/CS/Git/xG/scripts'
 
+    # update the events df with up to date event data
     event_updater(
-        event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
+        event_filepath=f'{datasets_path_head}/23_24_premier_league_events.csv', headers=headers)
 
-    shotmap_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
-                    event_filepath=f'{path_header}/23_24_premier_league_events.csv', headers=headers)
+    # pull new shotmaps for newly finished games
+    shotmap_updater(shotmap_filepath=f'{datasets_path_head}/23_24_shotmaps.csv',
+                    event_filepath=f'{datasets_path_head}/23_24_premier_league_events.csv', headers=headers)
 
-    player_event_updater(shotmap_filepath=f'{path_header}/23_24_shotmaps.csv',
-                         player_event_filepath=f'{path_header}/23_24_player_event_stats.csv', headers=headers)
+    # pull new player stats for newly finished games
+    player_event_updater(shotmap_filepath=f'{datasets_path_head}/23_24_shotmaps.csv',
+                         player_event_filepath=f'{datasets_path_head}/23_24_player_event_stats.csv', headers=headers)
 
-    augmented_shotmap_compilier(augmented_shotmap_filepath=f'{path_header}/23_24_shotmaps_augmented.csv',
-                                player_event_filepath=f'{path_header}/23_24_player_event_stats.csv')
+    # merge the player stats into the augemented shotmap
+    augmented_shotmap_compilier(augmented_shotmap_filepath=f'{datasets_path_head}/23_24_shotmaps_augmented.csv',
+                                player_event_filepath=f'{datasets_path_head}/23_24_player_event_stats.csv')
 
+    # push the updates in the datasets to github
     subprocess.run(
-        ["/Users/harrisonward/Desktop/CS/Git/xG/scripts/update_on_github.sh"])
+        [f'{scripts_path_head}/update_on_github.sh'])
 
 
 if __name__ == '__main__':
