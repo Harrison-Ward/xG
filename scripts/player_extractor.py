@@ -74,18 +74,19 @@ def player_event_updater(shotmap_filepath, player_event_filepath, headers):
         player_event_filepath, index_col='Unnamed: 0')
 
     # record the new and stored player_event pairings
-    all_player_event_ids = np.unique(
+    shotmap_player_event_ids = np.unique(
         shotmap_df[['player.id', 'event.id']].values, axis=0)
+    
     stored_player_event_ids = np.unique(
         player_event_stats_df[['player.id', 'event.id']].values, axis=0)
 
-    # create tuple for each row
-    stored_player_event_ids_set = [tuple(row)
+    # create tuple for each row, to uniquely identify player's stats by game
+    stored_player_event_ids_tuples = [tuple(row)
                                    for row in stored_player_event_ids]
 
-    # check the difference between the two set lists
-    new_player_event_ids = np.array([row for row in all_player_event_ids if tuple(
-        row) not in stored_player_event_ids_set])
+    # check the difference between the two lists
+    new_player_event_ids = np.array([row for row in shotmap_player_event_ids if tuple(
+        row) not in stored_player_event_ids_tuples])
 
     # exit if no new events are found
     if new_player_event_ids.shape[0] == 0:
@@ -102,12 +103,12 @@ def player_event_updater(shotmap_filepath, player_event_filepath, headers):
 
     # create a short dataframe of new player event data to append to the existing dataframe
     new_player_event_stats_df = pd.json_normalize(new_player_event_stats)
-    new_player_event_stats_df['event.id'] = new_player_event_ids[::, 1]
+    new_player_event_stats_df['event.id'] = new_player_event_ids[:, 1]
 
     # concatenate the new dataframe and existing dataframe
     player_event_stats_df = pd.concat(
         [player_event_stats_df, new_player_event_stats_df], sort=True,  verify_integrity=False, ignore_index=True)
-
+    
     # export the dataframe to csv
     player_event_stats_df.to_csv(player_event_filepath)
     logging.info(
