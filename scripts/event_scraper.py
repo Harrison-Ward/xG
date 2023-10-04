@@ -244,7 +244,7 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
 
     if len(new_completed_events) == 0:
         logging.warning('WARNING: No new events found')
-        logging.info('Event Scraper successfully exited\n\n\n')
+        logging.info('Event Scraper successfully exited\n')
         return 0
 
     # append the updated json info to the end of the df
@@ -255,8 +255,15 @@ def event_updater(event_filepath: str, headers=headers, valid_columns=None):
     event_df = event_df[~event_df['event.id'].isin(new_completed_events_ids)]
 
     # append the updated data to the df and save
-    event_df = pd.concat([event_df, pd.json_normalize(
+    try:
+        event_df = pd.concat([event_df, pd.json_normalize(
         new_completed_events)[valid_columns]], sort=True)
+    except KeyError as err:
+        logging.warning(f'WARNING: {err.args}, will attempt to interpolate with NaNs')
+        for missing_column in err.args:
+            for event in new_completed_events:
+                if missing_column not in event.keys():
+                    event[missing_column] = np.nan
 
     # print the event_id and slug event scraped
     home_team_names = event_df['event.homeTeam.name'].loc[event_df['event.id'].isin(
