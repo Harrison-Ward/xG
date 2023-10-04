@@ -1,3 +1,4 @@
+#!/opt/anaconda3/envs/cs109b/bin/python
 from player_shotmap_updater import player_shotmap_updater
 from event_scraper import event_updater
 from shotmap_extractor import shotmap_updater
