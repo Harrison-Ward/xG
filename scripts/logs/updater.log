@@ -22,3 +22,136 @@
 2023-09-19 21:44:03: Starting the update_on_github.sh script
 2023-09-19 21:44:04: Script execution completed
 
+2023-09-24 10:06:01,850: Event Scraper searching for updated event info...
+2023-09-24 10:08:30,784: Event Scraper searching for updated event info...
+2023-09-24 12:43:31,907: Event Scraper searching for updated event info...
+2023-09-24 12:43:36,041: WARNING: ("['event.attendance'] not in index",) not found, will attempt to interpolate with NaNs
+2023-10-03 20:07:18,318: Event Scraper searching for updated event info...
+2023-10-03 20:07:21,668: New Event Added: Arsenal vs Tottenham Hotspur
+2023-10-03 20:07:21,668: New Event Added: Brentford vs Everton
+2023-10-03 20:07:21,668: New Event Added: Brighton & Hove Albion vs Bournemouth
+2023-10-03 20:07:21,668: New Event Added: Burnley vs Manchester United
+2023-10-03 20:07:21,668: New Event Added: Chelsea vs Aston Villa
+2023-10-03 20:07:21,669: New Event Added: Crystal Palace vs Fulham
+2023-10-03 20:07:21,669: New Event Added: Liverpool vs West Ham United
+2023-10-03 20:07:21,669: New Event Added: Luton Town vs Wolverhampton
+2023-10-03 20:07:21,669: New Event Added: Manchester City vs Nottingham Forest
+2023-10-03 20:07:21,669: New Event Added: Sheffield United vs Newcastle United
+2023-10-03 20:07:21,669: New Event Added: Bournemouth vs Arsenal
+2023-10-03 20:07:21,669: New Event Added: Aston Villa vs Brighton & Hove Albion
+2023-10-03 20:07:21,669: New Event Added: Everton vs Luton Town
+2023-10-03 20:07:21,669: New Event Added: Fulham vs Chelsea
+2023-10-03 20:07:21,669: New Event Added: Manchester United vs Crystal Palace
+2023-10-03 20:07:21,669: New Event Added: Newcastle United vs Burnley
+2023-10-03 20:07:21,669: New Event Added: Nottingham Forest vs Brentford
+2023-10-03 20:07:21,669: New Event Added: Tottenham Hotspur vs Liverpool
+2023-10-03 20:07:21,669: New Event Added: West Ham United vs Sheffield United
+2023-10-03 20:07:21,669: New Event Added: Wolverhampton vs Manchester City
+2023-10-03 20:07:21,693: Event Scraper succesfully updated 20 new events
+
+2023-10-03 20:07:21,693: Event Scraper succesfully exited
+
+2023-10-03 20:07:21,693: Shotmap Extractor searching for new shotmaps...
+2023-10-03 20:07:26,084: New Shotmap Added: Arsenal vs Tottenham Hotspur
+2023-10-03 20:07:26,084: New Shotmap Added: Brentford vs Everton
+2023-10-03 20:07:26,084: New Shotmap Added: Brighton & Hove Albion vs Bournemouth
+2023-10-03 20:07:26,084: New Shotmap Added: Burnley vs Manchester United
+2023-10-03 20:07:26,085: New Shotmap Added: Chelsea vs Aston Villa
+2023-10-03 20:07:26,085: New Shotmap Added: Crystal Palace vs Fulham
+2023-10-03 20:07:26,085: New Shotmap Added: Liverpool vs West Ham United
+2023-10-03 20:07:26,085: New Shotmap Added: Luton Town vs Wolverhampton
+2023-10-03 20:07:26,085: New Shotmap Added: Manchester City vs Nottingham Forest
+2023-10-03 20:07:26,085: New Shotmap Added: Sheffield United vs Newcastle United
+2023-10-03 20:07:26,085: New Shotmap Added: Bournemouth vs Arsenal
+2023-10-03 20:07:26,085: New Shotmap Added: Aston Villa vs Brighton & Hove Albion
+2023-10-03 20:07:26,085: New Shotmap Added: Everton vs Luton Town
+2023-10-03 20:07:26,085: New Shotmap Added: Fulham vs Chelsea
+2023-10-03 20:07:26,085: New Shotmap Added: Manchester United vs Crystal Palace
+2023-10-03 20:07:26,085: New Shotmap Added: Newcastle United vs Burnley
+2023-10-03 20:07:26,085: New Shotmap Added: Nottingham Forest vs Brentford
+2023-10-03 20:07:26,085: New Shotmap Added: Tottenham Hotspur vs Liverpool
+2023-10-03 20:07:26,085: New Shotmap Added: West Ham United vs Sheffield United
+2023-10-03 20:07:26,085: New Shotmap Added: Wolverhampton vs Manchester City
+2023-10-03 20:07:26,146: Shotmap Extractor succesfully added 20 new shotmaps
+2023-10-03 20:07:26,146: Shotmap Extractor succesfully exited
+2023-10-03 20:07:26,147: Player Events Updater searching for new player events data...
+2023-10-03 20:08:58,021: Player Events Updater succesfully added 299 new player stats
+2023-10-03 20:08:58,022: Player Events Updater succesfully exited
+2023-10-03 20:08:58,023: Augmented Shotmap compilier started...
+2023-10-03 20:08:58,151: Augmented Shotmap Compilier sucessfully exited
+2023-10-03 20:08:58: Starting the update_on_github.sh script
+2023-10-03 20:09:01: Script execution completed
+
+2023-10-03 20:16:47,687: Event Scraper searching for updated event info...
+2023-10-03 20:16:47,706: WARNING: No new events found
+2023-10-03 20:16:47,706: Event Scraper successfully exited
+
+2023-10-03 20:16:47,706: Shotmap Extractor searching for new shotmaps...
+2023-10-03 20:16:47,742: WARNING: No new shotmaps found
+2023-10-03 20:16:47,742: Shotmap Extractor sucessfully exited
+2023-10-03 20:16:47,743: Player Events Updater searching for new player events data...
+2023-10-03 20:16:47,798: WARNING: No new player event data found
+2023-10-03 20:16:47,798: Player Updater successfully exited
+2023-10-03 20:16:47,798: Augmented Shotmap compilier started...
+2023-10-03 20:16:47,922: Augmented Shotmap Compilier sucessfully exited
+2023-10-03 20:16:47: Starting the update_on_github.sh script
+2023-10-03 20:16:50: Script execution completed
+
+2023-10-03 20:45:18,901: Event Scraper searching for updated event info...
+2023-10-03 20:45:18,922: WARNING: No new events found
+2023-10-03 20:45:18,922: Event Scraper successfully exited
+
+2023-10-03 20:45:18,922: Shotmap Extractor searching for new shotmaps...
+2023-10-03 20:45:18,957: WARNING: No new shotmaps found
+2023-10-03 20:45:18,957: Shotmap Extractor sucessfully exited
+2023-10-03 20:45:18,958: Player Events Updater searching for new player events data...
+2023-10-03 20:45:19,013: WARNING: No new player event data found
+2023-10-03 20:45:19,013: Player Updater successfully exited
+2023-10-03 20:45:19,014: Augmented Shotmap compilier started...
+2023-10-03 20:45:19,063: WARNING: No new player event data to merge
+2023-10-03 20:45:19,064: Augmented Shotmap Compilier successfully exited
+2023-10-03 20:45:19: Starting the update_on_github.sh script
+2023-10-03 20:45:21: Script execution completed
+
+2023-10-03 21:01:53,425: Event Scraper searching for updated event info...
+2023-10-03 21:01:53,448: WARNING: No new events found
+2023-10-03 21:01:53,449: Event Scraper successfully exited
+
+2023-10-03 21:01:53,449: Shotmap Extractor searching for new shotmaps...
+2023-10-03 21:01:53,482: WARNING: No new shotmaps found
+2023-10-03 21:01:53,482: Shotmap Extractor sucessfully exited
+2023-10-03 21:01:53,483: Player Events Updater searching for new player events data...
+2023-10-03 21:01:53,543: WARNING: No new player event data found
+2023-10-03 21:01:53,543: Player Updater successfully exited
+2023-10-03 21:01:53,543: Augmented Shotmap compilier started...
+2023-10-03 21:01:53,603: WARNING: ("['statistics.minutesPlayed', 'statistics.expectedAssists'] not found in axis",), were not found in the augmented_shotmap df when trying to refresh data
+2023-10-03 21:01:53,693: Augmented Shotmap Compilier sucessfully exited
+2023-10-03 21:01:53: Starting the update_on_github.sh script
+2023-10-03 21:01:56: Script execution completed
+
+2023-10-03 21:14:40,520: Event Scraper searching for updated event info...
+2023-10-03 21:14:40,540: WARNING: No new events found
+2023-10-03 21:14:40,540: Event Scraper successfully exited
+
+2023-10-03 21:14:40,540: Shotmap Extractor searching for new shotmaps...
+2023-10-03 21:14:40,577: WARNING: No new shotmaps found
+2023-10-03 21:14:40,577: Shotmap Extractor sucessfully exited
+2023-10-03 21:14:40,577: Player Events Updater searching for new player events data...
+2023-10-03 21:14:40,641: WARNING: No new player event data found
+2023-10-03 21:14:40,641: Player Updater successfully exited
+2023-10-03 21:14:54,355: Event Scraper searching for updated event info...
+2023-10-03 21:14:54,375: WARNING: No new events found
+2023-10-03 21:14:54,375: Event Scraper successfully exited
+
+2023-10-03 21:14:54,375: Shotmap Extractor searching for new shotmaps...
+2023-10-03 21:14:54,413: WARNING: No new shotmaps found
+2023-10-03 21:14:54,413: Shotmap Extractor sucessfully exited
+2023-10-03 21:14:54,414: Player Events Updater searching for new player events data...
+2023-10-03 21:14:54,467: WARNING: No new player event data found
+2023-10-03 21:14:54,467: Player Updater successfully exited
+2023-10-03 21:14:54,468: Player Shotmap Updater started...
+2023-10-03 21:14:54,520: WARNING: No new player event data to merge
+2023-10-03 21:14:54,520: Player Shotmap Updater successfully exited
+2023-10-03 21:14:54: Starting the update_on_github.sh script
+2023-10-03 21:14:56: Script execution completed
+

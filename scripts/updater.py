@@ -1,4 +1,4 @@
-from augmented_shotmap_compilier import augmented_shotmap_compilier
+from player_shotmap_updater import player_shotmap_updater
 from event_scraper import event_updater
 from shotmap_extractor import shotmap_updater
 from player_extractor import player_event_updater
@@ -43,7 +43,7 @@ def main():
                          player_event_filepath=f'{datasets_path_head}/23_24_player_event_stats.csv', headers=headers)
 
     # merge the player stats into the augemented shotmap
-    augmented_shotmap_compilier(augmented_shotmap_filepath=f'{datasets_path_head}/23_24_shotmaps_augmented.csv',
+    player_shotmap_updater(shotmap_filepath=f'{datasets_path_head}/23_24_shotmaps.csv',
                                 player_event_filepath=f'{datasets_path_head}/23_24_player_event_stats.csv')
 
     # push the updates in the datasets to github
