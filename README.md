@@ -1,5 +1,7 @@
 # xG and xP Analysis ⚽️
 
+Returning to the project? Jump straight to the [xG ](assets/xG_by_player_per_90.md) abd [xP](assets/full_table.md) tables
+
 ## Introduction
 
 ### xG (Expected Goals) Model
@@ -16,18 +18,28 @@ Explore the methodology and calculations in detail in the [xG Model Notebook](mo
 ### xP (Expected Points) Model
 The xP model takes the data from the xG model and simulates 100,000 possible matches to generate the probability that each team would win. These win probabilities are then used to calculate the number of expected points each team would recieve. 
 
-- Step one: Simulate each shot in the match 100,000 times, where the probability the shot results in a goal is the xG of that shot
-- Step two: Calculate
+- Step one: Simulate each shot in the match 100,000 times, where the probability the shot results in a goal is the xG of that shot, predicted by the xG model
 
-Dive into the specifics of the methodology in the [xP Model Notebook](models/xP_model.ipynb).
+- Step two: Calculate the scorelines from each simulated match by summing the goals scored by the home and away team in each of the simulated matches
+![width=3in](assets/sim_score_diff.png)
 
-## Data Tables
+- Step three: Calculate the percentage of games each side wins, draws, or loses in these simulated outcomes 
+
+![width=3in](assets/sim_outcome_prob.png)
+
+
+- Step four: Translate the win probabilities to expected points
+![width=3in](assets/sim_outcome_prob.png)
+
+For more on the methodology, see the [xP Model Notebook](models/xP_model.ipynb).
+
+## Tables
 Based on the xG and xP data I have compiled tables to track xG leaders across the premier league and the premier league table ranked by xP.
 
 - [xG Leaders](assets/xG_by_player_per_90.md)
 - [xP Team Table](assets/full_table.md)
 
-## Project Structure
+## Structure
 This project is organized as follows:
 
 - **models/**: Contains notebooks such as [xG Model](models/xG_model.ipynb) and [xP Model](models/xP_model.ipynb) which detail the methodologies and calculations.
