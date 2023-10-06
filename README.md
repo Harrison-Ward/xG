@@ -21,15 +21,17 @@ The xP model takes the data from the xG model and simulates 100,000 possible mat
 - Step one: Simulate each shot in the match 100,000 times, where the probability the shot results in a goal is the xG of that shot, predicted by the xG model
 
 - Step two: Calculate the scorelines from each simulated match by summing the goals scored by the home and away team in each of the simulated matches
-![width=3in](assets/sim_score_diff.png)
+
+![width=2in](assets/sim_score_diff.png)
 
 - Step three: Calculate the percentage of games each side wins, draws, or loses in these simulated outcomes 
 
-![width=3in](assets/sim_outcome_prob.png)
+![width=2in](assets/sim_outcome_prob.png)
 
 
 - Step four: Translate the win probabilities to expected points
-![width=3in](assets/sim_outcome_prob.png)
+
+![width=2in](assets/sim_outcome_prob.png)
 
 For more on the methodology, see the [xP Model Notebook](models/xP_model.ipynb).
 
