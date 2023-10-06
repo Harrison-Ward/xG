@@ -7,7 +7,7 @@ import datetime
 import subprocess
 import logging
 
-logging.basicConfig(level=logging.INFO, filename='scripts/logs/updater.log',
+logging.basicConfig(level=logging.INFO, filename='/Users/harrisonward/Desktop/CS/Git/xG/scripts/logs/updater.log',
                     filemode='a', format='%(asctime)s: %(message)s')
 
 
