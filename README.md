@@ -31,7 +31,7 @@ The xP model takes the data from the xG model and simulates 100,000 possible mat
 
 - Step four: Translate the win probabilities to expected points
 
-![width=1in](assets/sim_outcome_prob.png)
+![width=1in](assets/sim_xp.png)
 
 For more on the methodology, see the [xP Model Notebook](models/xP_model.ipynb).
 
