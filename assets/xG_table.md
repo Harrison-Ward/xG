@@ -1,22 +1,22 @@
 |    | Team                   |    xG |   xGA |   xG Differential |
 |---:|:-----------------------|------:|------:|------------------:|
-|  1 | Manchester City        | 15.28 |  3.69 |             11.58 |
-|  2 | Newcastle United       | 15.49 |  7.87 |              7.62 |
-|  3 | Tottenham Hotspur      | 15.36 |  8.23 |              7.12 |
-|  4 | Arsenal                | 12.27 |  6    |              6.27 |
-|  5 | Liverpool              | 14.65 |  9.15 |              5.5  |
-|  6 | Aston Villa            | 15.84 | 10.71 |              5.13 |
-|  7 | Chelsea                | 10.63 |  7.33 |              3.3  |
-|  8 | Everton                | 14.25 | 11.18 |              3.07 |
-|  9 | Brentford              | 12.15 |  9.23 |              2.92 |
-| 10 | Brighton & Hove Albion | 15.02 | 13.14 |              1.88 |
-| 11 | West Ham United        | 14.92 | 14.12 |              0.81 |
-| 12 | Crystal Palace         |  8.25 |  7.69 |              0.56 |
-| 13 | Manchester United      |  8.29 |  9.71 |             -1.42 |
-| 14 | Nottingham Forest      |  7.34 | 10.24 |             -2.9  |
-| 15 | Wolverhampton          |  8.12 | 13.22 |             -5.11 |
-| 16 | Fulham                 |  8.68 | 15.39 |             -6.71 |
-| 17 | Luton Town             |  6.83 | 13.79 |             -6.97 |
-| 18 | Burnley                |  4.34 | 13.71 |             -9.37 |
-| 19 | Bournemouth            |  7.46 | 18.44 |            -10.98 |
-| 20 | Sheffield United       |  6.8  | 19.11 |            -12.31 |
+|  1 | Newcastle United       | 22.22 |  9.75 |             12.47 |
+|  2 | Manchester City        | 15.85 |  4.78 |             11.08 |
+|  3 | Tottenham Hotspur      | 18.11 |  8.45 |              9.65 |
+|  4 | Liverpool              | 16.55 |  8.19 |              8.36 |
+|  5 | Aston Villa            | 19.58 | 11.46 |              8.12 |
+|  6 | Arsenal                | 15.15 |  8.03 |              7.12 |
+|  7 | Chelsea                | 12.69 |  9.05 |              3.64 |
+|  8 | Brentford              | 13.47 | 10    |              3.47 |
+|  9 | Brighton & Hove Albion | 16.97 | 14.26 |              2.71 |
+| 10 | Everton                | 13.04 | 12.07 |              0.97 |
+| 11 | Crystal Palace         |  9.37 | 10.52 |             -1.15 |
+| 12 | West Ham United        | 14.25 | 16.95 |             -2.7  |
+| 13 | Manchester United      | 10.1  | 12.98 |             -2.88 |
+| 14 | Nottingham Forest      |  9.45 | 12.65 |             -3.2  |
+| 15 | Wolverhampton          | 10.64 | 13.98 |             -3.34 |
+| 16 | Fulham                 |  8.6  | 15.12 |             -6.52 |
+| 17 | Luton Town             |  7.42 | 15.36 |             -7.94 |
+| 18 | Bournemouth            |  7.74 | 19.96 |            -12.23 |
+| 19 | Burnley                |  4.55 | 16.85 |            -12.31 |
+| 20 | Sheffield United       |  8.31 | 23.63 |            -15.32 |
