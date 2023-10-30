@@ -4,7 +4,7 @@ Returning to the project? Jump straight to the [xG ](assets/xG_by_player_per_90.
 
 ## Introduction
 
-### xG (Expected Goals) Model
+### PSxG (Post Shot Expected Goals) Model
 The xG model in this project aims to quantify the quality of a goal-scoring opportunity in a football match, providing a probability that a given shot will result in a goal. The model considers various factors such as:
 
 - **Shot Distance**: The distance between the player and the goal at the time of the shot.
@@ -16,7 +16,7 @@ The xG model in this project aims to quantify the quality of a goal-scoring oppo
 Explore the methodology and calculations in detail in the [xG Model Notebook](models/xG_model.ipynb).
 
 ### xP (Expected Points) Model
-The xP model takes the data from the xG model and simulates 100,000 possible matches to generate the probability that each team would win. These win probabilities are then used to calculate the number of expected points each team would recieve. 
+The xP model takes the data from the PSxG model and simulates 100,000 possible matches to generate the probability that each team would win. These win probabilities are then used to calculate the number of expected points each team would receive. 
 
 - Step one: Simulate each shot in the match 100,000 times, where the probability the shot results in a goal is the xG of that shot, predicted by the xG model
 
