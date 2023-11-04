@@ -1,11 +1,11 @@
 # xG and xP Analysis ⚽️
 
-Returning to the project? Jump straight to the [xG ](assets/xG_by_player_per_90.md) abd [xP](assets/full_table.md) tables
+Returning to the project? Jump straight to the [xG ](assets/xG_by_player_per_90.md) and [xP](assets/full_table.md) tables
 
 ## Introduction
 
 ### PSxG (Post Shot Expected Goals) Model
-The xG model in this project aims to quantify the quality of a goal-scoring opportunity in a football match, providing a probability that a given shot will result in a goal. The model considers various factors such as:
+The PSxG model in this project aims to quantify the quality of a goal-scoring opportunity in a football match, providing a probability that a given shot will result in a goal. The model considers various factors such as:
 
 - **Shot Distance**: The distance between the player and the goal at the time of the shot.
 - **Shot Angle**: The angle between the ball and the goal posts.
@@ -13,7 +13,7 @@ The xG model in this project aims to quantify the quality of a goal-scoring oppo
 - **Shot Location**: Where the player takes the shot on the pitch
 - **Goal Mouth Location**: Where the ball crosses the goalline
 
-Explore the methodology and calculations in detail in the [xG Model Notebook](models/xG_model.ipynb).
+Explore the methodology and calculations in detail in the [PSxG Model Notebook](models/xG_model.ipynb).
 
 ### xP (Expected Points) Model
 The xP model takes the data from the PSxG model and simulates 100,000 possible matches to generate the probability that each team would win. These win probabilities are then used to calculate the number of expected points each team would receive. 
@@ -36,9 +36,9 @@ The xP model takes the data from the PSxG model and simulates 100,000 possible m
 For more on the methodology, see the [xP Model Notebook](models/xP_model.ipynb).
 
 ## Tables
-Based on the xG and xP data I have compiled tables to track xG leaders across the premier league and the premier league table ranked by xP.
+Based on the PSxG and xP data I have compiled tables to track PSxG leaders across the premier league and the premier league table ranked by xP.
 
-- [xG Leaders](assets/xG_by_player_per_90.md)
+- [PSxG Leaders](assets/xG_by_player_per_90.md)
 - [xP Team Table](assets/full_table.md)
 
 ## Structure
