@@ -1,22 +1,22 @@
 |    | Player             | Team                   | Position   |    xG |
 |---:|:-------------------|:-----------------------|:-----------|------:|
-|  1 | Erling Haaland     | Manchester City        | F          | 11.35 |
-|  2 | Ollie Watkins      | Aston Villa            | F          |  8.05 |
-|  3 | Dominic Solanke    | Bournemouth            | F          |  7.97 |
-|  4 | Jarrod Bowen       | West Ham United        | M          |  7.93 |
-|  5 | Heung-min Son      | Tottenham Hotspur      | F          |  7.82 |
-|  6 | Mohamed Salah      | Liverpool              | F          |  6.78 |
-|  7 | Alexander Isak     | Newcastle United       | F          |  6.39 |
-|  8 | Bryan Mbeumo       | Brentford              | F          |  6.17 |
-|  9 | Callum Wilson      | Newcastle United       | F          |  6.06 |
-| 10 | Odsonne Édouard    | Crystal Palace         | F          |  5.94 |
-| 11 | Darwin Núñez       | Liverpool              | F          |  5.13 |
-| 12 | Neal Maupay        | Everton                | F          |  5.04 |
-| 13 | Bukayo Saka        | Arsenal                | F          |  4.91 |
-| 14 | Anthony Gordon     | Newcastle United       | F          |  4.82 |
-| 15 | Douglas Luiz       | Aston Villa            | M          |  4.72 |
-| 16 | Evan Ferguson      | Brighton & Hove Albion | F          |  4.72 |
-| 17 | Nicolas Jackson    | Chelsea                | F          |  4.69 |
-| 18 | Abdoulaye Doucouré | Everton                | M          |  4.62 |
-| 19 | João Pedro         | Brighton & Hove Albion | F          |  4.5  |
-| 20 | Hee-Chan Hwang     | Wolverhampton          | F          |  4.27 |
+|  1 | Erling Haaland     | Manchester City        | F          | 21.57 |
+|  2 | Ollie Watkins      | Aston Villa            | F          | 15.54 |
+|  3 | Heung-min Son      | Tottenham Hotspur      | F          | 14.92 |
+|  4 | Mohamed Salah      | Liverpool              | F          | 14.24 |
+|  5 | Jarrod Bowen       | West Ham United        | M          | 13.97 |
+|  6 | Dominic Solanke    | Bournemouth            | F          | 13.03 |
+|  7 | Alexander Isak     | Newcastle United       | F          | 12.27 |
+|  8 | Bryan Mbeumo       | Brentford              | F          | 11.09 |
+|  9 | Callum Wilson      | Newcastle United       | F          | 10.72 |
+| 10 | Odsonne Édouard    | Crystal Palace         | F          | 10.53 |
+| 11 | Bukayo Saka        | Arsenal                | F          |  9.21 |
+| 12 | Anthony Gordon     | Newcastle United       | F          |  9.17 |
+| 13 | Evan Ferguson      | Brighton & Hove Albion | F          |  9.12 |
+| 14 | Abdoulaye Doucouré | Everton                | M          |  8.54 |
+| 15 | Darwin Núñez       | Liverpool              | F          |  8.49 |
+| 16 | Tomáš Souček       | West Ham United        | M          |  8.24 |
+| 17 | Carlton Morris     | Luton Town             | F          |  8.23 |
+| 18 | Hee-Chan Hwang     | Wolverhampton          | F          |  8.02 |
+| 19 | Douglas Luiz       | Aston Villa            | M          |  7.83 |
+| 20 | Raheem Sterling    | Chelsea                | F          |  7.78 |
